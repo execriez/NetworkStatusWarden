@@ -115,10 +115,10 @@ void NetworkStateCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, void 
             if ([previousInterface compare:primaryInterface] != NSOrderedSame) {
                 if ([primaryInterface compare:@"none"] == NSOrderedSame) {
                     [[NSString stringWithFormat:@"%@-NetworkDown %@", exepath, previousInterface] runAsCommand];
-                    NSLog(@"Network Service down: old %@, new %@", previousInterface, primaryInterface);
+                    NSLog(@"Primary interface down: old %@, new %@", previousInterface, primaryInterface);
                 } else {
                     [[NSString stringWithFormat:@"%@-NetworkUp %@", exepath, primaryInterface] runAsCommand];
-                    NSLog(@"Network Service up: old %@, new %@", previousInterface, primaryInterface);
+                    NSLog(@"Primary interface up: old %@, new %@", previousInterface, primaryInterface);
                 }
             }
             
