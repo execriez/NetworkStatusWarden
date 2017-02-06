@@ -35,12 +35,12 @@ If it fails to run, make sure that the executable bit is set on the script.
 
 ##History:
 
-1.0.1 - 02 JUN 2016
-
-* First public release.
-
 1.0.2 - 04 JAN 2017
 
 * Now keeps track of previous primary network interface to eliminate spurious NetworkUp calls.
  
 * Renamed from NetworkStateWarden to NetworkStatusWarden.
+
+1.0.1 - 02 JUN 2016
+
+* First public release.
