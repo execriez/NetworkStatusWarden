@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# Short:    Do something when the primary network goes down
+# Author:   Mark J Swift
+# Version:  1.0.2
+# Modified: 04-Jan-2017
+#
+# Called by NetworkStateWarden as follows:    
+#   NetworkStatusWarden-NetworkDown
+
+# ---
+
+say "Network down."
