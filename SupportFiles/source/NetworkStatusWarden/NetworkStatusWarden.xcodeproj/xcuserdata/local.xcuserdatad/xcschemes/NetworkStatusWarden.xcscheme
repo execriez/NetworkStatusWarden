@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "723D51421E485AF600DD4FDB"
+               BlueprintIdentifier = "72B3C5521ED48FF000594770"
                BuildableName = "NetworkStatusWarden"
                BlueprintName = "NetworkStatusWarden"
                ReferencedContainer = "container:NetworkStatusWarden.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "723D51421E485AF600DD4FDB"
+            BlueprintIdentifier = "72B3C5521ED48FF000594770"
             BuildableName = "NetworkStatusWarden"
             BlueprintName = "NetworkStatusWarden"
             ReferencedContainer = "container:NetworkStatusWarden.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "723D51421E485AF600DD4FDB"
+            BlueprintIdentifier = "72B3C5521ED48FF000594770"
             BuildableName = "NetworkStatusWarden"
             BlueprintName = "NetworkStatusWarden"
             ReferencedContainer = "container:NetworkStatusWarden.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "723D51421E485AF600DD4FDB"
+            BlueprintIdentifier = "72B3C5521ED48FF000594770"
             BuildableName = "NetworkStatusWarden"
             BlueprintName = "NetworkStatusWarden"
             ReferencedContainer = "container:NetworkStatusWarden.xcodeproj">

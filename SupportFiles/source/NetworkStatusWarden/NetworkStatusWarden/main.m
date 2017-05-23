@@ -1,7 +1,7 @@
 //
 //  main.m
 //  NetworkStatusWarden
-//  Version 1.0.2
+//  Version 1.0.3
 //
 //  Created on 02/06/2016 by Mark J Swift by googling example code.
 //

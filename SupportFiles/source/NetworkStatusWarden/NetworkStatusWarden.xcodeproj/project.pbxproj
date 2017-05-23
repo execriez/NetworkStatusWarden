@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		723D51471E485AF600DD4FDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 723D51461E485AF600DD4FDB /* main.m */; };
+		72B3C5571ED48FF000594770 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B3C5561ED48FF000594770 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		723D51411E485AF600DD4FDB /* CopyFiles */ = {
+		72B3C5511ED48FF000594770 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -23,12 +23,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		723D51431E485AF600DD4FDB /* NetworkStatusWarden */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NetworkStatusWarden; sourceTree = BUILT_PRODUCTS_DIR; };
-		723D51461E485AF600DD4FDB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		72B3C5531ED48FF000594770 /* NetworkStatusWarden */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NetworkStatusWarden; sourceTree = BUILT_PRODUCTS_DIR; };
+		72B3C5561ED48FF000594770 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		723D51401E485AF600DD4FDB /* Frameworks */ = {
+		72B3C5501ED48FF000594770 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -38,26 +38,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		723D513A1E485AF600DD4FDB = {
+		72B3C54A1ED48FF000594770 = {
 			isa = PBXGroup;
 			children = (
-				723D51451E485AF600DD4FDB /* NetworkStatusWarden */,
-				723D51441E485AF600DD4FDB /* Products */,
+				72B3C5551ED48FF000594770 /* NetworkStatusWarden */,
+				72B3C5541ED48FF000594770 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		723D51441E485AF600DD4FDB /* Products */ = {
+		72B3C5541ED48FF000594770 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				723D51431E485AF600DD4FDB /* NetworkStatusWarden */,
+				72B3C5531ED48FF000594770 /* NetworkStatusWarden */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		723D51451E485AF600DD4FDB /* NetworkStatusWarden */ = {
+		72B3C5551ED48FF000594770 /* NetworkStatusWarden */ = {
 			isa = PBXGroup;
 			children = (
-				723D51461E485AF600DD4FDB /* main.m */,
+				72B3C5561ED48FF000594770 /* main.m */,
 			);
 			path = NetworkStatusWarden;
 			sourceTree = "<group>";
@@ -65,13 +65,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		723D51421E485AF600DD4FDB /* NetworkStatusWarden */ = {
+		72B3C5521ED48FF000594770 /* NetworkStatusWarden */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 723D514A1E485AF600DD4FDB /* Build configuration list for PBXNativeTarget "NetworkStatusWarden" */;
+			buildConfigurationList = 72B3C55A1ED48FF000594770 /* Build configuration list for PBXNativeTarget "NetworkStatusWarden" */;
 			buildPhases = (
-				723D513F1E485AF600DD4FDB /* Sources */,
-				723D51401E485AF600DD4FDB /* Frameworks */,
-				723D51411E485AF600DD4FDB /* CopyFiles */,
+				72B3C54F1ED48FF000594770 /* Sources */,
+				72B3C5501ED48FF000594770 /* Frameworks */,
+				72B3C5511ED48FF000594770 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -79,53 +79,53 @@
 			);
 			name = NetworkStatusWarden;
 			productName = NetworkStatusWarden;
-			productReference = 723D51431E485AF600DD4FDB /* NetworkStatusWarden */;
+			productReference = 72B3C5531ED48FF000594770 /* NetworkStatusWarden */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		723D513B1E485AF600DD4FDB /* Project object */ = {
+		72B3C54B1ED48FF000594770 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Mark J Swift";
 				TargetAttributes = {
-					723D51421E485AF600DD4FDB = {
+					72B3C5521ED48FF000594770 = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
 				};
 			};
-			buildConfigurationList = 723D513E1E485AF600DD4FDB /* Build configuration list for PBXProject "NetworkStatusWarden" */;
+			buildConfigurationList = 72B3C54E1ED48FF000594770 /* Build configuration list for PBXProject "NetworkStatusWarden" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 723D513A1E485AF600DD4FDB;
-			productRefGroup = 723D51441E485AF600DD4FDB /* Products */;
+			mainGroup = 72B3C54A1ED48FF000594770;
+			productRefGroup = 72B3C5541ED48FF000594770 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				723D51421E485AF600DD4FDB /* NetworkStatusWarden */,
+				72B3C5521ED48FF000594770 /* NetworkStatusWarden */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		723D513F1E485AF600DD4FDB /* Sources */ = {
+		72B3C54F1ED48FF000594770 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				723D51471E485AF600DD4FDB /* main.m in Sources */,
+				72B3C5571ED48FF000594770 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		723D51481E485AF600DD4FDB /* Debug */ = {
+		72B3C5581ED48FF000594770 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -168,7 +168,7 @@
 			};
 			name = Debug;
 		};
-		723D51491E485AF600DD4FDB /* Release */ = {
+		72B3C5591ED48FF000594770 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -204,14 +204,14 @@
 			};
 			name = Release;
 		};
-		723D514B1E485AF600DD4FDB /* Debug */ = {
+		72B3C55B1ED48FF000594770 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		723D514C1E485AF600DD4FDB /* Release */ = {
+		72B3C55C1ED48FF000594770 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -221,24 +221,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		723D513E1E485AF600DD4FDB /* Build configuration list for PBXProject "NetworkStatusWarden" */ = {
+		72B3C54E1ED48FF000594770 /* Build configuration list for PBXProject "NetworkStatusWarden" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				723D51481E485AF600DD4FDB /* Debug */,
-				723D51491E485AF600DD4FDB /* Release */,
+				72B3C5581ED48FF000594770 /* Debug */,
+				72B3C5591ED48FF000594770 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		723D514A1E485AF600DD4FDB /* Build configuration list for PBXNativeTarget "NetworkStatusWarden" */ = {
+		72B3C55A1ED48FF000594770 /* Build configuration list for PBXNativeTarget "NetworkStatusWarden" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				723D514B1E485AF600DD4FDB /* Debug */,
-				723D514C1E485AF600DD4FDB /* Release */,
+				72B3C55B1ED48FF000594770 /* Debug */,
+				72B3C55C1ED48FF000594770 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 723D513B1E485AF600DD4FDB /* Project object */;
+	rootObject = 72B3C54B1ED48FF000594770 /* Project object */;
 }

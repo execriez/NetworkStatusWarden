@@ -1,0 +1,29 @@
+#!/bin/bash
+#
+# Short:    Do something when the primary network goes down
+# Author:   Mark J Swift
+# Version:  1.0.3
+# Modified: 23-May-2017
+#
+# Called by NetworkStateWarden as follows:    
+#   NetworkStatusWarden-NetworkDown
+
+# ---
+
+# assume that all scripts are in a subdirectory off the main project directory
+GLB_sv_ProjectDirPath="$(dirname $(dirname ${0}))"
+
+# Include the CommonLib
+. "${GLB_sv_ProjectDirPath}/inc/Common.sh"
+
+# Exit if something went wrong unexpectedly
+if test -z "${GLB_sv_ProjectName}"
+then
+  exit 90
+fi
+
+# ---
+
+GLB_nf_logmessage ${GLB_iv_MsgLevelNotice} "Network Down"
+
+say "Network Down"
