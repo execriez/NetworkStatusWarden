@@ -1,9 +1,9 @@
 //
 //  main.m
 //  NetworkStatusWarden
-//  Version 1.0.3
+//  Version 1.0.4
 //
-//  Created on 02/06/2016 by Mark J Swift by googling example code.
+//  by Mark J Swift
 //
 //  Calls an external commands via bash when network state changes between up and down
 //  External commands are NetworkStateWarden-NetworkUp and NetworkStateWarden-NetworkDown

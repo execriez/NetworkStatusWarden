@@ -2,8 +2,8 @@
 #
 # Short:    Do something when the primary network comes up or changes
 # Author:   Mark J Swift
-# Version:  1.0.3
-# Modified: 23-May-2017
+# Version:  1.0.4
+# Modified: 01-Jun-2017
 #
 # Called by NetworkStatusWarden as follows:    
 #   NetworkStatusWarden-NetworkUp <InterfaceName>
