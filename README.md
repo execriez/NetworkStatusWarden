@@ -71,7 +71,7 @@ There's no need to reboot.
 
 After the uninstall everything goes back to normal, and primary network status changes will not be tracked.
 
-##History:
+## History:
 
 1.0.4 - 01 JUN 2017
 
