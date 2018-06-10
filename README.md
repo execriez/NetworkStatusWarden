@@ -31,7 +31,7 @@ The installer will install the following files and directories:
 
 There's no need to reboot.
 
-After installation, your computer will speak whenever the primary network status changes.
+After installation, your computer will speak during network up and down events.
 
 You can alter the example shell scripts to alter this behavior, these can be found in the following location:
 
