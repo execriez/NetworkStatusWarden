@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# Short:    Do something when the primary network comes up or changes
+# Short:    Do something when the any network interface comes up
 # Author:   Mark J Swift
 # Version:  1.0.5
 # Modified: 09-Jun-2018
 #
 # Called by NetworkStatusWarden as follows:    
-#   NetworkStatusWarden-NetworkUp <ServiceName> <InterfaceName>
+#   NetworkStatusWarden-InterfaceUp <InterfaceName>
 
 # ---
 
@@ -24,11 +24,10 @@ fi
 
 # ---
 
-sv_PrimaryService="${1}"
-sv_PrimaryInterface="${2}"
+sv_NetworkInterface="${1}"
 
 # ---
 
-GLB_nf_logmessage ${GLB_iv_MsgLevelNotice} "Primary network service up - '${sv_PrimaryInterface}'"
+GLB_nf_logmessage ${GLB_iv_MsgLevelNotice} "Network interface up - '${sv_NetworkInterface}'"
 
-say "Primary network service up - $(echo "${sv_PrimaryInterface}" | sed "s|\(.\)|\1 |g")"
+say "Network interface up - $(echo "${sv_NetworkInterface}" | sed "s|\(.\)|\1 |g")"

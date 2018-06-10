@@ -1,12 +1,6 @@
 UNINSTALLING:
 
-To uninstall you should double-click the following uninstaller package which can be found in the "SupportFiles" directory.
-
-  NetworkStatusWarden-Uninstaller.pkg
-	
-If the uninstaller package isn't available, you can uninstall from a shell by typing the following:
-
-  sudo /usr/local/NetworkStatusWarden/util/Uninstall
+Download the installer package here: <https://raw.githubusercontent.com/execriez/LabWarden/master/SupportFiles/NetworkStatusWarden-Uninstaller.pkg>
 
 The uninstaller will uninstall the following files and directories:
 

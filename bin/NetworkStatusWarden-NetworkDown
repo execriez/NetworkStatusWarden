@@ -2,11 +2,11 @@
 #
 # Short:    Do something when the primary network goes down
 # Author:   Mark J Swift
-# Version:  1.0.4
-# Modified: 01-Jun-2017
+# Version:  1.0.5
+# Modified: 09-Jun-2018
 #
 # Called by NetworkStateWarden as follows:    
-#   NetworkStatusWarden-NetworkDown
+#   NetworkStatusWarden-NetworkDown <ServiceName> <InterfaceName>
 
 # ---
 
@@ -24,6 +24,16 @@ fi
 
 # ---
 
-GLB_nf_logmessage ${GLB_iv_MsgLevelNotice} "Network Down"
+sv_PrimaryService="${1}"
+sv_PrimaryInterface="${2}"
 
-say "Network Down"
+# ---
+
+GLB_nf_logmessage ${GLB_iv_MsgLevelNotice} "Primary network service down - '${sv_PrimaryInterface}'"
+
+if [ "${sv_PrimaryService}" = "unknown" ]
+then
+  say "Primary network service down"
+else
+  say "Primary network service down - $(echo "${sv_PrimaryInterface}" | sed "s|\(.\)|\1 |g")"
+fi

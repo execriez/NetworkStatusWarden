@@ -1,14 +1,6 @@
 INSTALLATION:
 
-Download the NetworkStatusWarden zip archive from <https://github.com/execriez/NetworkStatusWarden>, then unzip the archive on a Mac workstation.
-
-Ideally, to install - you should double-click the following installer package which can be found in the "SupportFiles" directory.
-
-  NetworkStatusWarden.pkg
-	
-If the installer package isn't available, you can run the command-line installer which can be found in the "util" directory:
-
-  sudo Install
+Download the installer package here: <https://raw.githubusercontent.com/execriez/LabWarden/master/SupportFiles/NetworkStatusWarden.pkg>
 
 The installer will install the following files and directories:
 
@@ -23,6 +15,8 @@ You can alter the example shell scripts to alter this behavior, these can be fou
 
 	  /usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkDown
 	  /usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkUp
+	  /usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceDown
+	  /usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceUp
 
 If the installer fails you should check the logs.
 

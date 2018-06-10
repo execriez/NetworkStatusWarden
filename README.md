@@ -1,34 +1,28 @@
 # NetworkStatusWarden
 ![Logo](images/NetworkStatusWarden.jpg "Logo")
 
-Run custom code when the primary network interface changes on MacOS.
+Run custom code during network up and down events on MacOS.
 
 ## Description:
 
-NetworkStatusWarden catches MacOS primary network interface changes, to allow you to run custom code when the network goes down, comes up, or changes.
+NetworkStatusWarden catches MacOS network events to allow you to run custom code when the primary network service goes down or comes up - and when any network interface goes down or comes up.
 
 It consists of the following components:
 
-	NetworkStatusWarden             - The main binary that catches the network change events
-	NetworkStatusWarden-NetworkDown - Called when the primary network goes down
-	NetworkStatusWarden-NetworkUp   - Called when the primary network changes or comes up
+	NetworkStatusWarden               - The main binary that catches the network change events
+	NetworkStatusWarden-InterfaceDown - Called when any network interface goes down
+	NetworkStatusWarden-InterfaceUp   - Called when any network interface comes up
+	NetworkStatusWarden-NetworkDown   - Called when the primary network service goes down
+	NetworkStatusWarden-NetworkUp     - Called when the primary network service comes up (or changes)
 
-The example NetworkStatusWarden-NetworkDown and NetworkStatusWarden-NetworkUp are bash scripts.
+The example NetworkStatusWarden-InterfaceDown, NetworkStatusWarden-InterfaceUp, NetworkStatusWarden-NetworkDown and NetworkStatusWarden-NetworkUp are bash scripts.
 
 The example scripts simply use the "say" command to let you know when the network is up or down. You should customise these scripts to your own needs.
 
 
 ## How to install:
 
-Download the NetworkStatusWarden zip archive from <https://github.com/execriez/NetworkStatusWarden>, then unzip the archive on a Mac workstation.
-
-Ideally, to install - you should double-click the following installer package which can be found in the "SupportFiles" directory.
-
-	NetworkStatusWarden.pkg
-	
-If the installer package isn't available, you can run the command-line installer which can be found in the "util" directory:
-
-	sudo Install
+Download the installer package here: [NetworkStatusWarden.pkg](https://raw.githubusercontent.com/execriez/LabWarden/master/SupportFiles/NetworkStatusWarden.pkg "NetworkStatusWarden.pkg") 
 
 The installer will install the following files and directories:
 
@@ -41,6 +35,8 @@ After installation, your computer will speak whenever the primary network status
 
 You can alter the example shell scripts to alter this behavior, these can be found in the following location:
 
+	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceDown
+	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceUp
 	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkDown
 	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkUp
 
@@ -54,13 +50,7 @@ Logs are written to the following file:
 
 ## How to uninstall:
 
-To uninstall you should double-click the following uninstaller package which can be found in the "SupportFiles" directory.
-
-	NetworkStatusWarden-Uninstaller.pkg
-	
-If the uninstaller package isn't available, you can uninstall from a shell by typing the following:
-
-	sudo /usr/local/NetworkStatusWarden/util/Uninstall
+Download the uninstaller package here: [NetworkStatusWarden-Uninstaller.pkg](https://raw.githubusercontent.com/execriez/LabWarden/master/SupportFiles/NetworkStatusWarden-Uninstaller.pkg "NetworkStatusWarden-Uninstaller.pkg") 
 
 The uninstaller will uninstall the following files and directories:
 
@@ -69,9 +59,13 @@ The uninstaller will uninstall the following files and directories:
 
 There's no need to reboot.
 
-After the uninstall everything goes back to normal, and primary network status changes will not be tracked.
+After the uninstall everything goes back to normal, and network state changes will not be tracked.
 
 ## History:
+
+1.0.5 - 10 JUN 2018
+
+* Previously the code was only interested in primary service up and down events. This version includes code to catch network interface up and down events too.
 
 1.0.4 - 01 JUN 2017
 
