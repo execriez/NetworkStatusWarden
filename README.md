@@ -22,7 +22,7 @@ The example scripts simply use the "say" command to let you know when the networ
 
 ## How to install:
 
-Download the installer package here: [NetworkStatusWarden.pkg](https://raw.githubusercontent.com/execriez/LabWarden/master/SupportFiles/NetworkStatusWarden.pkg "NetworkStatusWarden.pkg") 
+Download the installer package here: [NetworkStatusWarden.pkg](https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden.pkg "NetworkStatusWarden.pkg") 
 
 The installer will install the following files and directories:
 
@@ -50,7 +50,7 @@ Logs are written to the following file:
 
 ## How to uninstall:
 
-Download the uninstaller package here: [NetworkStatusWarden-Uninstaller.pkg](https://raw.githubusercontent.com/execriez/LabWarden/master/SupportFiles/NetworkStatusWarden-Uninstaller.pkg "NetworkStatusWarden-Uninstaller.pkg") 
+Download the uninstaller package here: [NetworkStatusWarden-Uninstaller.pkg](https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden-Uninstaller.pkg "NetworkStatusWarden-Uninstaller.pkg") 
 
 The uninstaller will uninstall the following files and directories:
 

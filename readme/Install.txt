@@ -1,6 +1,6 @@
 INSTALLATION:
 
-Download the installer package here: <https://raw.githubusercontent.com/execriez/LabWarden/master/SupportFiles/NetworkStatusWarden.pkg>
+Download the installer package here: <https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden.pkg>
 
 The installer will install the following files and directories:
 
