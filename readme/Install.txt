@@ -1,27 +1,47 @@
 INSTALLATION:
 
-Download the installer package here: <https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden.pkg>
+Download the NetworkStatusWarden installation package here:
+
+   https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden.pkg
 
 The installer will install the following files and directories:
 
-  /Library/LaunchDaemons/com.github.execriez.networkstatuswarden.plist
-  /usr/NetworkStatusWarden/
+   /Library/LaunchDaemons/com.github.execriez.networkstatuswarden.plist
+   /usr/NetworkStatusWarden/
+   /usr/NetworkStatusWarden/bin/
+   /usr/NetworkStatusWarden/bin/NetworkStatusWarden
+   /usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceDown
+   /usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceUp
+   /usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkDown
+   /usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkUp
 
 There's no need to reboot.
 
 After installation, your computer will speak during network up and down events.
 
-You can alter the example shell scripts to alter this behavior, these can be found in the following location:
+If the installer fails you should check the installation logs.
 
-	  /usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkDown
-	  /usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkUp
-	  /usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceDown
-	  /usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceUp
 
-If the installer fails you should check the logs.
+MODIFYING THE EXAMPLE SCRIPTS:
+
+After installation, three simple example scripts can be found in the following location:
+
+   /usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceDown
+   /usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceUp
+   /usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkDown
+   /usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkUp
+
+These simple scripts use the "say" command to speak to let you know when the network is up or down. Modify the scripts to alter this default behaviour.
+
 
 LOGS:
 
-Logs are written to the following file:
+The MountWarden binary writes to the following log file:
 
-  /Library/Logs/com.github.execriez.networkstatuswarden.log
+   /var/log/systemlog
+
+The installer writes to the following log file:
+
+   /Library/Logs/com.github.execriez.networkstatuswarden.log
+
+You should check this log if there are issues when installing.

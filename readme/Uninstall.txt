@@ -1,12 +1,15 @@
 UNINSTALLING:
 
-Download the installer package here: <https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden-Uninstaller.pkg>
+Download the NetworkStatusWarden uninstaller package here:
 
-The uninstaller will uninstall the following files and directories:
+   https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden-Uninstaller.pkg
 
-  /Library/LaunchDaemons/com.github.execriez.networkstatuswarden.plist
-  /usr/NetworkStatusWarden/
+The uninstaller will remove the following files and directories:
+
+   /Library/LaunchDaemons/com.github.execriez.networkstatuswarden.plist
+   /usr/NetworkStatusWarden/
+
+After the uninstall everything goes back to normal, and network up and down events will not be tracked.
 
 There's no need to reboot.
 
-After the uninstall everything goes back to normal, and primary network status changes will not be tracked.

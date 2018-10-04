@@ -1,33 +1,12 @@
 #!/bin/bash
 #
-# Short:    Do something when the any network interface comes up
-# Author:   Mark J Swift
-# Version:  1.0.5
-# Modified: 09-Jun-2018
-#
-# Called by NetworkStatusWarden as follows:    
-#   NetworkStatusWarden-InterfaceUp <InterfaceName>
+# Called by NetworkStatusWarden as root like this:
+#   NetworkStatusWarden-InterfaceUp "InterfaceName"
+# i.e.
+#   NetworkStatusWarden-InterfaceUp "en0"
 
-# ---
+# Get interface name
+sv_InterfaceName="${1}"
 
-# assume that all scripts are in a subdirectory off the main project directory
-GLB_sv_ProjectDirPath="$(dirname $(dirname ${0}))"
-
-# Include the CommonLib
-. "${GLB_sv_ProjectDirPath}/inc/Common.sh"
-
-# Exit if something went wrong unexpectedly
-if test -z "${GLB_sv_ProjectName}"
-then
-  exit 90
-fi
-
-# ---
-
-sv_NetworkInterface="${1}"
-
-# ---
-
-GLB_nf_logmessage ${GLB_iv_MsgLevelNotice} "Network interface up - '${sv_NetworkInterface}'"
-
-say "Network interface up - $(echo "${sv_NetworkInterface}" | sed "s|\(.\)|\1 |g")"
+# Do something
+say "Network interface up - $(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"

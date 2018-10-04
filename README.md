@@ -7,61 +7,166 @@ Run custom code during network up and down events on MacOS.
 
 NetworkStatusWarden catches MacOS network events to allow you to run custom code when the primary network service goes down or comes up - and when any network interface goes down or comes up.
 
-It consists of the following components:
+NetworkStatusWarden consists of the following components:
 
 	NetworkStatusWarden               - The main binary that catches the network change events
 	NetworkStatusWarden-InterfaceDown - Called when any network interface goes down
 	NetworkStatusWarden-InterfaceUp   - Called when any network interface comes up
 	NetworkStatusWarden-NetworkDown   - Called when the primary network service goes down
 	NetworkStatusWarden-NetworkUp     - Called when the primary network service comes up (or changes)
+ 
+NetworkStatusWarden-InterfaceDown, NetworkStatusWarden-InterfaceUp, NetworkStatusWarden-NetworkDown and NetworkStatusWarden-NetworkUp are bash scripts.
 
-The example NetworkStatusWarden-InterfaceDown, NetworkStatusWarden-InterfaceUp, NetworkStatusWarden-NetworkDown and NetworkStatusWarden-NetworkUp are bash scripts.
-
-The example scripts simply use the "say" command to let you know when the network is up or down. You should customise these scripts to your own needs.
+These example scripts use the "say" command to speak whenever there is a network event. You should customise the scripts to your own needs.
 
 
 ## How to install:
 
-Download the installer package here: [NetworkStatusWarden.pkg](https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden.pkg "NetworkStatusWarden.pkg") 
+Download the NetworkStatusWarden installation package here [NetworkStatusWarden.pkg](https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden.pkg)
 
 The installer will install the following files and directories:
 
 	/Library/LaunchDaemons/com.github.execriez.networkstatuswarden.plist
 	/usr/NetworkStatusWarden/
+	/usr/NetworkStatusWarden/bin/
+	/usr/NetworkStatusWarden/bin/NetworkStatusWarden
+	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceDown
+	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceUp
+	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkDown
+	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkUp
 
 There's no need to reboot.
 
 After installation, your computer will speak during network up and down events.
 
-You can alter the example shell scripts to alter this behavior, these can be found in the following location:
+If the installer fails you should check the installation logs.
+
+## Modifying the example scripts:
+
+After installation, four simple example scripts can be found in the following location:
 
 	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceDown
 	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-InterfaceUp
 	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkDown
 	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkUp
 
-If the installer fails you should check the logs.
+These simple scripts use the "say" command to speak to let you know when the network is up or down. Modify the scripts to alter this default behaviour.
 
-## Logs:
+**NetworkStatusWarden-InterfaceDown**
 
-Logs are written to the following file:
+	#!/bin/bash
+	#
+	# Called by NetworkStatusWarden as root like this:
+	#   NetworkStatusWarden-InterfaceDown "InterfaceName"
+	# i.e.
+	#   NetworkStatusWarden-InterfaceDown "en0"
 
-	/Library/Logs/com.github.execriez.networkstatuswarden.log
+	# Get interface name
+	sv_InterfaceName="${1}"
+
+	# Do something
+	say "Network interface down - $(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+
+**NetworkStatusWarden-InterfaceUp**
+
+	#!/bin/bash
+	#
+	# Called by NetworkStatusWarden as root like this:
+	#   NetworkStatusWarden-InterfaceUp "InterfaceName"
+	# i.e.
+	#   NetworkStatusWarden-InterfaceUp "en0"
+
+	# Get interface name
+	sv_InterfaceName="${1}"
+
+	# Do something
+	say "Network interface up - $(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+
+**NetworkStatusWarden-NetworkDown**
+
+	#!/bin/bash
+	#
+	# Called by NetworkStatusWarden as root like this:
+	#   NetworkStatusWarden-NetworkDown "ServiceName" "InterfaceName"
+	# i.e.
+	#   NetworkStatusWarden-NetworkDown "9804EAB2-718C-42A7-891D-79B73F91CA4B" "en0"
+
+	# Get interface name
+	sv_ServiceName="${1}"
+
+	# Get service name
+	sv_InterfaceName="${2}"
+
+	# Do something
+	if [ "${sv_PrimaryService}" = "unknown" ]
+	then
+	  say "Primary network service down"
+	else
+	  say "Primary network service down - $(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+	fi
+
+**NetworkStatusWarden-NetworkUp**
+
+	#!/bin/bash
+	#
+	# Called by NetworkStatusWarden as root like this:
+	#   NetworkStatusWarden-NetworkUp "ServiceName" "InterfaceName"
+	# i.e.
+	#   NetworkStatusWarden-NetworkUp "9804EAB2-718C-42A7-891D-79B73F91CA4B" "en0"
+
+	# Get interface name
+	sv_ServiceName="${1}"
+
+	# Get service name
+	sv_InterfaceName="${2}"
+
+	# Do something
+	if [ "${sv_PrimaryService}" = "unknown" ]
+	then
+	  say "Primary network service up"
+	else
+	  say "Primary network service up - $(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+	fi
 
 ## How to uninstall:
 
-Download the uninstaller package here: [NetworkStatusWarden-Uninstaller.pkg](https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden-Uninstaller.pkg "NetworkStatusWarden-Uninstaller.pkg") 
+Download the NetworkStatusWarden uninstaller package here [NetworkStatusWarden-Uninstaller.pkg](https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden-Uninstaller.pkg)
 
-The uninstaller will uninstall the following files and directories:
+The uninstaller will remove the following files and directories:
 
 	/Library/LaunchDaemons/com.github.execriez.networkstatuswarden.plist
 	/usr/NetworkStatusWarden/
 
+After the uninstall everything goes back to normal, and network up and down events will not be tracked.
+
 There's no need to reboot.
 
-After the uninstall everything goes back to normal, and network state changes will not be tracked.
+## Logs:
+
+The NetworkStatusWarden binary writes to the following log file:
+
+	/var/log/systemlog
+  
+The following is an example of a typical system log file entry:
+
+	Oct  3 19:32:42 mymac-01 NetworkStatusWarden[1951]: Interface up: en1
+	Oct  3 19:32:45 mymac-01 NetworkStatusWarden[1951]: Primary network service up: old unset (unset), new 9804EAB2-718C-42A7-891D-79B73F91CA4B (en1)
+	Oct  3 19:32:54 mymac-01 NetworkStatusWarden[1951]: Interface down: en1
+	Oct  3 19:32:57 mymac-01 NetworkStatusWarden[1951]: Primary network service down: old 9804EAB2-718C-42A7-891D-79B73F91CA4B (en1), new unset (unset)
+
+The installer writes to the following log file:
+
+	/Library/Logs/com.github.execriez.networkstatuswarden.log
+  
+You should check this log if there are issues when installing.
 
 ## History:
+
+1.0.6 - 03 OCT 2018
+
+* Network events no longer wait for earlier events to finish before running. Events can now be running simultaneously.
+
+* The example scripts have been simplified, and the readme has been improved.
 
 1.0.5 - 10 JUN 2018
 

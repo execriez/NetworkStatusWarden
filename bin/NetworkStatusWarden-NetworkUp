@@ -1,34 +1,20 @@
 #!/bin/bash
 #
-# Short:    Do something when the primary network comes up or changes
-# Author:   Mark J Swift
-# Version:  1.0.5
-# Modified: 09-Jun-2018
-#
-# Called by NetworkStatusWarden as follows:    
-#   NetworkStatusWarden-NetworkUp <ServiceName> <InterfaceName>
+# Called by NetworkStatusWarden as root like this:
+#   NetworkStatusWarden-NetworkUp "ServiceName" "InterfaceName"
+# i.e.
+#   NetworkStatusWarden-NetworkUp "9804EAB2-718C-42A7-891D-79B73F91CA4B" "en0"
 
-# ---
+# Get interface name
+sv_ServiceName="${1}"
 
-# assume that all scripts are in a subdirectory off the main project directory
-GLB_sv_ProjectDirPath="$(dirname $(dirname ${0}))"
+# Get service name
+sv_InterfaceName="${2}"
 
-# Include the CommonLib
-. "${GLB_sv_ProjectDirPath}/inc/Common.sh"
-
-# Exit if something went wrong unexpectedly
-if test -z "${GLB_sv_ProjectName}"
+# Do something
+if [ "${sv_PrimaryService}" = "unknown" ]
 then
-  exit 90
+  say "Primary network service up"
+else
+  say "Primary network service up - $(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
 fi
-
-# ---
-
-sv_PrimaryService="${1}"
-sv_PrimaryInterface="${2}"
-
-# ---
-
-GLB_nf_logmessage ${GLB_iv_MsgLevelNotice} "Primary network service up - '${sv_PrimaryInterface}'"
-
-say "Primary network service up - $(echo "${sv_PrimaryInterface}" | sed "s|\(.\)|\1 |g")"

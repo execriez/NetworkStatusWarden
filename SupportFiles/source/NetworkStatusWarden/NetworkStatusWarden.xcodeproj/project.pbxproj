@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		72B3C5571ED48FF000594770 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B3C5561ED48FF000594770 /* main.m */; };
+		72322620216539B7006090BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7232261F216539B7006090BD /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		72B3C5511ED48FF000594770 /* CopyFiles */ = {
+		7232261A216539B7006090BD /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -23,12 +23,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		72B3C5531ED48FF000594770 /* NetworkStatusWarden */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NetworkStatusWarden; sourceTree = BUILT_PRODUCTS_DIR; };
-		72B3C5561ED48FF000594770 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7232261C216539B7006090BD /* NetworkStatusWarden */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NetworkStatusWarden; sourceTree = BUILT_PRODUCTS_DIR; };
+		7232261F216539B7006090BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		72B3C5501ED48FF000594770 /* Frameworks */ = {
+		72322619216539B7006090BD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -38,26 +38,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		72B3C54A1ED48FF000594770 = {
+		72322613216539B7006090BD = {
 			isa = PBXGroup;
 			children = (
-				72B3C5551ED48FF000594770 /* NetworkStatusWarden */,
-				72B3C5541ED48FF000594770 /* Products */,
+				7232261E216539B7006090BD /* NetworkStatusWarden */,
+				7232261D216539B7006090BD /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		72B3C5541ED48FF000594770 /* Products */ = {
+		7232261D216539B7006090BD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				72B3C5531ED48FF000594770 /* NetworkStatusWarden */,
+				7232261C216539B7006090BD /* NetworkStatusWarden */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		72B3C5551ED48FF000594770 /* NetworkStatusWarden */ = {
+		7232261E216539B7006090BD /* NetworkStatusWarden */ = {
 			isa = PBXGroup;
 			children = (
-				72B3C5561ED48FF000594770 /* main.m */,
+				7232261F216539B7006090BD /* main.m */,
 			);
 			path = NetworkStatusWarden;
 			sourceTree = "<group>";
@@ -65,13 +65,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		72B3C5521ED48FF000594770 /* NetworkStatusWarden */ = {
+		7232261B216539B7006090BD /* NetworkStatusWarden */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 72B3C55A1ED48FF000594770 /* Build configuration list for PBXNativeTarget "NetworkStatusWarden" */;
+			buildConfigurationList = 72322623216539B7006090BD /* Build configuration list for PBXNativeTarget "NetworkStatusWarden" */;
 			buildPhases = (
-				72B3C54F1ED48FF000594770 /* Sources */,
-				72B3C5501ED48FF000594770 /* Frameworks */,
-				72B3C5511ED48FF000594770 /* CopyFiles */,
+				72322618216539B7006090BD /* Sources */,
+				72322619216539B7006090BD /* Frameworks */,
+				7232261A216539B7006090BD /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -79,56 +79,58 @@
 			);
 			name = NetworkStatusWarden;
 			productName = NetworkStatusWarden;
-			productReference = 72B3C5531ED48FF000594770 /* NetworkStatusWarden */;
+			productReference = 7232261C216539B7006090BD /* NetworkStatusWarden */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		72B3C54B1ED48FF000594770 /* Project object */ = {
+		72322614216539B7006090BD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0820;
-				ORGANIZATIONNAME = "Mark J Swift";
+				ORGANIZATIONNAME = "Mark Swift";
 				TargetAttributes = {
-					72B3C5521ED48FF000594770 = {
-						CreatedOnToolsVersion = 7.2.1;
+					7232261B216539B7006090BD = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = 72B3C54E1ED48FF000594770 /* Build configuration list for PBXProject "NetworkStatusWarden" */;
+			buildConfigurationList = 72322617216539B7006090BD /* Build configuration list for PBXProject "NetworkStatusWarden" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 72B3C54A1ED48FF000594770;
-			productRefGroup = 72B3C5541ED48FF000594770 /* Products */;
+			mainGroup = 72322613216539B7006090BD;
+			productRefGroup = 7232261D216539B7006090BD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				72B3C5521ED48FF000594770 /* NetworkStatusWarden */,
+				7232261B216539B7006090BD /* NetworkStatusWarden */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		72B3C54F1ED48FF000594770 /* Sources */ = {
+		72322618216539B7006090BD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72B3C5571ED48FF000594770 /* main.m in Sources */,
+				72322620216539B7006090BD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		72B3C5581ED48FF000594770 /* Debug */ = {
+		72322621216539B7006090BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -136,6 +138,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -163,17 +166,18 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
-		72B3C5591ED48FF000594770 /* Release */ = {
+		72322622216539B7006090BD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -181,6 +185,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -202,13 +207,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
 			name = Release;
 		};
-		72B3C55B1ED48FF000594770 /* Debug */ = {
+		72322624216539B7006090BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -216,7 +221,7 @@
 			};
 			name = Debug;
 		};
-		72B3C55C1ED48FF000594770 /* Release */ = {
+		72322625216539B7006090BD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -227,25 +232,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		72B3C54E1ED48FF000594770 /* Build configuration list for PBXProject "NetworkStatusWarden" */ = {
+		72322617216539B7006090BD /* Build configuration list for PBXProject "NetworkStatusWarden" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				72B3C5581ED48FF000594770 /* Debug */,
-				72B3C5591ED48FF000594770 /* Release */,
+				72322621216539B7006090BD /* Debug */,
+				72322622216539B7006090BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		72B3C55A1ED48FF000594770 /* Build configuration list for PBXNativeTarget "NetworkStatusWarden" */ = {
+		72322623216539B7006090BD /* Build configuration list for PBXNativeTarget "NetworkStatusWarden" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				72B3C55B1ED48FF000594770 /* Debug */,
-				72B3C55C1ED48FF000594770 /* Release */,
+				72322624216539B7006090BD /* Debug */,
+				72322625216539B7006090BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 72B3C54B1ED48FF000594770 /* Project object */;
+	rootObject = 72322614216539B7006090BD /* Project object */;
 }

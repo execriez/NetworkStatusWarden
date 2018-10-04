@@ -1,39 +1,20 @@
 #!/bin/bash
 #
-# Short:    Do something when the primary network goes down
-# Author:   Mark J Swift
-# Version:  1.0.5
-# Modified: 09-Jun-2018
-#
-# Called by NetworkStateWarden as follows:    
-#   NetworkStatusWarden-NetworkDown <ServiceName> <InterfaceName>
+# Called by NetworkStatusWarden as root like this:
+#   NetworkStatusWarden-NetworkDown "ServiceName" "InterfaceName"
+# i.e.
+#   NetworkStatusWarden-NetworkDown "9804EAB2-718C-42A7-891D-79B73F91CA4B" "en0"
 
-# ---
+# Get interface name
+sv_ServiceName="${1}"
 
-# assume that all scripts are in a subdirectory off the main project directory
-GLB_sv_ProjectDirPath="$(dirname $(dirname ${0}))"
+# Get service name
+sv_InterfaceName="${2}"
 
-# Include the CommonLib
-. "${GLB_sv_ProjectDirPath}/inc/Common.sh"
-
-# Exit if something went wrong unexpectedly
-if test -z "${GLB_sv_ProjectName}"
-then
-  exit 90
-fi
-
-# ---
-
-sv_PrimaryService="${1}"
-sv_PrimaryInterface="${2}"
-
-# ---
-
-GLB_nf_logmessage ${GLB_iv_MsgLevelNotice} "Primary network service down - '${sv_PrimaryInterface}'"
-
+# Do something
 if [ "${sv_PrimaryService}" = "unknown" ]
 then
   say "Primary network service down"
 else
-  say "Primary network service down - $(echo "${sv_PrimaryInterface}" | sed "s|\(.\)|\1 |g")"
+  say "Primary network service down - $(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
 fi
