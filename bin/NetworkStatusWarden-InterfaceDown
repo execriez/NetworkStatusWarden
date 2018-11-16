@@ -5,8 +5,56 @@
 # i.e.
 #   NetworkStatusWarden-InterfaceDown "en0"
 
+# --- Begin Flapping Fix -----
+
+# Delay before commiting
+sv_MaxSecs=1
+
+sv_LockName="InterfaceDown"
+sv_LockDirPath="/tmp/dontflap"
+
+mkdir -p "${sv_LockDirPath}"
+chown root:wheel "${sv_LockDirPath}"
+chmod 750 "${sv_LockDirPath}"
+
+# Get Process ID of this script
+iv_ThisScriptPID=$$
+
+echo "${iv_ThisScriptPID}" >> "${sv_LockDirPath}/${sv_LockName}"
+while [ 1 = 1 ]
+do
+  iv_LockEpoch=$(stat -f "%m" "${sv_LockDirPath}/${sv_LockName}")
+  if [ $(($(date -u "+%s")-${iv_LockEpoch})) -ge ${sv_MaxSecs} ]
+  then
+    break
+  fi 
+  sleep 1
+done
+
+sv_ActiveLockPID="$(cat "${sv_LockDirPath}/${sv_LockName}" | head -n1)"
+if [ "${sv_ActiveLockPID}" != "${iv_ThisScriptPID}" ]
+then
+  exit 0
+fi
+
+rm -f "${sv_LockDirPath}/${sv_LockName}"
+
+# --- End Flapping Fix -----
+
+# --------
+
+# Do Something Here
+
 # Get interface name
 sv_InterfaceName="${1}"
 
-# Do something
-say "Network interface down - $(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+nf_DoSomething()
+{
+  echo "${1}" >> /tmp/NetworkStatusWarden.log
+  say "${1}"
+}
+
+# Get a pronouncable interface name
+sv_PronouncableInterfaceName="$(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+
+nf_DoSomething "Network interface down - ${sv_PronouncableInterfaceName}"

@@ -61,11 +61,23 @@ These simple scripts use the "say" command to speak to let you know when the net
 	# i.e.
 	#   NetworkStatusWarden-InterfaceDown "en0"
 
+	# --------
+
+	# Do Something Here
+
 	# Get interface name
 	sv_InterfaceName="${1}"
 
-	# Do something
-	say "Network interface down - $(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+	nf_DoSomething()
+	{
+	  echo "${1}" >> /tmp/NetworkStatusWarden.log
+	  say "${1}"
+	}
+
+	# Get a pronouncable interface name
+	sv_PronouncableInterfaceName="$(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+
+	nf_DoSomething "Network interface down - ${sv_PronouncableInterfaceName}"
 
 **NetworkStatusWarden-InterfaceUp**
 
@@ -76,11 +88,23 @@ These simple scripts use the "say" command to speak to let you know when the net
 	# i.e.
 	#   NetworkStatusWarden-InterfaceUp "en0"
 
+	# --------
+
+	# Do Something Here
+
 	# Get interface name
 	sv_InterfaceName="${1}"
 
-	# Do something
-	say "Network interface up - $(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+	nf_DoSomething()
+	{
+	  echo "${1}" >> /tmp/NetworkStatusWarden.log
+	  say "${1}"
+	}
+
+	# Get a pronouncable interface name
+	sv_PronouncableInterfaceName="$(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+
+	nf_DoSomething "Network interface up - ${sv_PronouncableInterfaceName}"
 
 **NetworkStatusWarden-NetworkDown**
 
@@ -91,18 +115,30 @@ These simple scripts use the "say" command to speak to let you know when the net
 	# i.e.
 	#   NetworkStatusWarden-NetworkDown "9804EAB2-718C-42A7-891D-79B73F91CA4B" "en0"
 
-	# Get interface name
-	sv_ServiceName="${1}"
+	# --------
+
+	# Do Something Here
 
 	# Get service name
+	sv_ServiceName="${1}"
+
+	# Get interface name
 	sv_InterfaceName="${2}"
 
-	# Do something
-	if [ "${sv_PrimaryService}" = "unknown" ]
+	nf_DoSomething()
+	{
+	  echo "${1}" >> /tmp/NetworkStatusWarden.log
+	  say "${1}"
+	}
+
+	# Get a pronouncable interface name
+	sv_PronouncableInterfaceName="$(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+
+	if [ "${sv_ServiceName}" = "com.cisco.anyconnect" ]
 	then
-	  say "Primary network service down"
+	  nf_DoSomething "Cisco VPN service down - on ${sv_PronouncableInterfaceName}"
 	else
-	  say "Primary network service down - $(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+	  nf_DoSomething "Primary network service down - on ${sv_PronouncableInterfaceName}"
 	fi
 
 **NetworkStatusWarden-NetworkUp**
@@ -114,18 +150,30 @@ These simple scripts use the "say" command to speak to let you know when the net
 	# i.e.
 	#   NetworkStatusWarden-NetworkUp "9804EAB2-718C-42A7-891D-79B73F91CA4B" "en0"
 
-	# Get interface name
-	sv_ServiceName="${1}"
+	# --------
+
+	# Do Something Here
 
 	# Get service name
+	sv_ServiceName="${1}"
+
+	# Get interface name
 	sv_InterfaceName="${2}"
 
-	# Do something
-	if [ "${sv_PrimaryService}" = "unknown" ]
+	nf_DoSomething()
+	{
+	  echo "${1}" >> /tmp/NetworkStatusWarden.log
+	  say "${1}"
+	}
+
+	# Get a pronouncable interface name
+	sv_PronouncableInterfaceName="$(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+
+	if [ "${sv_ServiceName}" = "com.cisco.anyconnect" ]
 	then
-	  say "Primary network service up"
+	  nf_DoSomething "Cisco VPN service up - on ${sv_PronouncableInterfaceName}"
 	else
-	  say "Primary network service up - $(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+	  nf_DoSomething "Primary network service up - on ${sv_PronouncableInterfaceName}"
 	fi
 
 ## How to uninstall:
@@ -161,6 +209,14 @@ The installer writes to the following log file:
 You should check this log if there are issues when installing.
 
 ## History:
+
+1.0.7 - 16 NOV 2018
+
+* The NetworkStatusWarden binary now always calls a "NetworkDown" script before the "NetworkUp" script when the active network service changes. Network down events were noticeably missing when disconnecting Cisco VPN client connections.
+
+* The example scripts now include an anti-flapping section at the beginning. This smooths out events caused by the network service fluctuating between up and down. This is noticeable when disconnecting Cisco VPN client connections.
+
+* The example scripts now write a log to "/tmp/NetworkStatusWarden.log"
 
 1.0.6 - 03 OCT 2018
 

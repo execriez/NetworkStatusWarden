@@ -5,16 +5,67 @@
 # i.e.
 #   NetworkStatusWarden-NetworkUp "9804EAB2-718C-42A7-891D-79B73F91CA4B" "en0"
 
-# Get interface name
-sv_ServiceName="${1}"
+# --- Begin Flapping Fix -----
+
+# Delay before commiting
+sv_MaxSecs=1
+
+sv_LockName="NetworkUp"
+sv_LockDirPath="/tmp/dontflap"
+
+mkdir -p "${sv_LockDirPath}"
+chown root:wheel "${sv_LockDirPath}"
+chmod 750 "${sv_LockDirPath}"
+
+# Get Process ID of this script
+iv_ThisScriptPID=$$
+
+echo "${iv_ThisScriptPID}" > "${sv_LockDirPath}/${sv_LockName}"
+while [ 1 = 1 ]
+do
+  if [ ! -e "${sv_LockDirPath}/NetworkDown" ]
+  then
+    iv_LockEpoch=$(stat -f "%m" "${sv_LockDirPath}/${sv_LockName}")
+    if [ $(($(date -u "+%s")-${iv_LockEpoch})) -ge ${sv_MaxSecs} ]
+    then
+      break
+    fi
+  fi
+  sleep 1
+done
+
+sv_ActiveLockPID="$(cat "${sv_LockDirPath}/${sv_LockName}" | head -n1)"
+if [ "${sv_ActiveLockPID}" != "${iv_ThisScriptPID}" ]
+then
+  exit 0
+fi
+
+rm -f "${sv_LockDirPath}/${sv_LockName}"
+
+# --- End Flapping Fix -----
+
+# --------
+
+# Do Something Here
 
 # Get service name
+sv_ServiceName="${1}"
+
+# Get interface name
 sv_InterfaceName="${2}"
 
-# Do something
-if [ "${sv_PrimaryService}" = "unknown" ]
+nf_DoSomething()
+{
+  echo "${1}" >> /tmp/NetworkStatusWarden.log
+  say "${1}"
+}
+
+# Get a pronouncable interface name
+sv_PronouncableInterfaceName="$(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+
+if [ "${sv_ServiceName}" = "com.cisco.anyconnect" ]
 then
-  say "Primary network service up"
+  nf_DoSomething "Cisco VPN service up - on ${sv_PronouncableInterfaceName}"
 else
-  say "Primary network service up - $(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
+  nf_DoSomething "Primary network service up - on ${sv_PronouncableInterfaceName}"
 fi

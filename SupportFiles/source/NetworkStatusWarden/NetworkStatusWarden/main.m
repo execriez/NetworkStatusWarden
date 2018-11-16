@@ -1,7 +1,7 @@
 //
 //  main.m
 //  NetworkStatusWarden
-//  Version 1.0.6
+//  Version 1.0.7
 //
 //  by Mark J Swift
 //
@@ -9,10 +9,10 @@
 //  and when the primary network service comes up or goes down
 //
 //  External commands are
-//    NetworkStateWarden-InterfaceUp
-//    NetworkStateWarden-InterfaceDown
-//    NetworkStateWarden-NetworkUp
-//    NetworkStateWarden-NetworkDown
+//    NetworkStatusWarden-InterfaceUp
+//    NetworkStatusWarden-InterfaceDown
+//    NetworkStatusWarden-NetworkUp
+//    NetworkStatusWarden-NetworkDown
 
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
@@ -112,7 +112,7 @@ void PrimaryServiceStateCallback(SCDynamicStoreRef store, CFArrayRef changedKeys
         // We are only interested in "State:/Network/Global/IPv4"
         if (CFStringCompare(changedKeyName, state_network_global_ipv4_KeyName, 0) == kCFCompareEqualTo) {
             
-            //            NSLog(@"DEBUG PrimaryServiceStateCallback: changedKeyName: %@", changedKeyName);
+            // NSLog(@"DEBUG PrimaryServiceStateCallback: changedKeyName: %@", changedKeyName);
             
             // Get the previous primary interface settings from our global vars
             PrevPrimaryServiceValue=globals.PrimaryServiceSetting;
@@ -125,8 +125,8 @@ void PrimaryServiceStateCallback(SCDynamicStoreRef store, CFArrayRef changedKeys
                 PrevPrimaryInterfaceValue = @"unset";
             }
             
-            //            NSLog(@"DEBUG PrimaryServiceStateCallback: PrevPrimaryServiceValue: %@", PrevPrimaryServiceValue);
-            //            NSLog(@"DEBUG PrimaryServiceStateCallback: PrevPrimaryInterfaceValue: %@", PrevPrimaryInterfaceValue);
+            // NSLog(@"DEBUG PrimaryServiceStateCallback: PrevPrimaryServiceValue: %@", PrevPrimaryServiceValue);
+            // NSLog(@"DEBUG PrimaryServiceStateCallback: PrevPrimaryInterfaceValue: %@", PrevPrimaryInterfaceValue);
             
             // Get the /Network/Global/IPv4 Key property
             CFPropertyListRef changedKeyProp = SCDynamicStoreCopyValue(store, (CFStringRef) changedKeyName);
@@ -147,17 +147,20 @@ void PrimaryServiceStateCallback(SCDynamicStoreRef store, CFArrayRef changedKeys
             globals.PrimaryServiceSetting = CurrPrimaryServiceValue;
             globals.PrimaryInterfaceSetting = CurrPrimaryInterfaceValue;
             
-            //            NSLog(@"DEBUG PrimaryServiceStateCallback: CurrPrimaryServiceValue: %@", CurrPrimaryServiceValue);
-            //            NSLog(@"DEBUG PrimaryServiceStateCallback: CurrPrimaryInterfaceValue: %@", CurrPrimaryInterfaceValue);
+            //NSLog(@"DEBUG PrimaryServiceStateCallback: CurrPrimaryServiceValue: %@", CurrPrimaryServiceValue);
+            //NSLog(@"DEBUG PrimaryServiceStateCallback: CurrPrimaryInterfaceValue: %@", CurrPrimaryInterfaceValue);
             
             // Only do something if the primary interface value has changed
             if ([CurrPrimaryServiceValue compare:PrevPrimaryServiceValue] != NSOrderedSame) {
-                if ([CurrPrimaryServiceValue compare:@"unset"] == NSOrderedSame) {
+                // if the previous service value was set, then this change means that the previous service has gone down
+                if ([PrevPrimaryServiceValue compare:@"unset"] != NSOrderedSame) {
                     [[NSString stringWithFormat:@"%@-NetworkDown %@ %@", exepath, PrevPrimaryServiceValue, PrevPrimaryInterfaceValue] runAsCommand];
-                    NSLog(@"Primary network service down: old %@ (%@), new %@ (%@)", PrevPrimaryServiceValue, PrevPrimaryInterfaceValue, CurrPrimaryServiceValue, CurrPrimaryInterfaceValue);
-                } else {
+                    NSLog(@"Primary network service down: %@ (%@), [ new %@ (%@) ]", PrevPrimaryServiceValue, PrevPrimaryInterfaceValue, CurrPrimaryServiceValue, CurrPrimaryInterfaceValue);
+                }
+                // if the current service value is set, then this change means this service has just come up
+                if ([CurrPrimaryServiceValue compare:@"unset"] != NSOrderedSame) {
                     [[NSString stringWithFormat:@"%@-NetworkUp %@ %@", exepath, CurrPrimaryServiceValue, CurrPrimaryInterfaceValue] runAsCommand];
-                    NSLog(@"Primary network service up: old %@ (%@), new %@ (%@)", PrevPrimaryServiceValue, PrevPrimaryInterfaceValue, CurrPrimaryServiceValue, CurrPrimaryInterfaceValue);
+                    NSLog(@"Primary network service up: %@ (%@), [ old %@ (%@) ]", CurrPrimaryServiceValue, CurrPrimaryInterfaceValue, PrevPrimaryServiceValue, PrevPrimaryInterfaceValue);
                 }
             }
             
@@ -242,13 +245,13 @@ int main(int argc, const char * argv[]) {
         CFRunLoopSourceRef	NetworkInterfaceSessionRunLoopSource;
         
         GlobalVars *globals = [GlobalVars sharedInstance];
-        globals.PrimaryServiceSetting = @"unknown";
-        globals.PrimaryInterfaceSetting = @"unknown";
+        globals.PrimaryServiceSetting = @"unset";
+        globals.PrimaryInterfaceSetting = @"unset";
         
         // --- track changes to the primary network service ---
         
         SCDynamicStoreContext PrimaryInterfaceContext = {0, NULL, NULL, NULL, NULL};
-        PrimaryServiceSession = SCDynamicStoreCreate(NULL, CFSTR("NetworkStateWarden-PrimaryInterface"), PrimaryServiceStateCallback, &PrimaryInterfaceContext);
+        PrimaryServiceSession = SCDynamicStoreCreate(NULL, CFSTR("NetworkStatusWarden-PrimaryInterface"), PrimaryServiceStateCallback, &PrimaryInterfaceContext);
         
         PrimaryInterfaceTrackingKeys = CFArrayCreateMutable(NULL, 0, &kCFTypeArrayCallBacks);
         PrimaryInterfaceTrackingPatterns = CFArrayCreateMutable(NULL, 0, &kCFTypeArrayCallBacks);
@@ -273,7 +276,7 @@ int main(int argc, const char * argv[]) {
         // --- track changes to network interfaces ---
         
         SCDynamicStoreContext NetworkInterfaceContext = {0, NULL, NULL, NULL, NULL};
-        NetworkInterfaceSession = SCDynamicStoreCreate(NULL, CFSTR("NetworkStateWarden-NetworkInterface"), NetworkInterfaceStateCallback, &NetworkInterfaceContext);
+        NetworkInterfaceSession = SCDynamicStoreCreate(NULL, CFSTR("NetworkStatusWarden-NetworkInterface"), NetworkInterfaceStateCallback, &NetworkInterfaceContext);
         
         NetworkInterfaceTrackingKeys = CFArrayCreateMutable(NULL, 0, &kCFTypeArrayCallBacks);
         NetworkInterfaceTrackingPatterns = CFArrayCreateMutable(NULL, 0, &kCFTypeArrayCallBacks);

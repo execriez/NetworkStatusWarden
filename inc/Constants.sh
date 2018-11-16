@@ -89,7 +89,7 @@ then
   GLB_sv_ProjectName="NetworkStatusWarden"
   GLB_sv_ProjectInitials="NSW"
   GLB_sv_ProjectDeveloper="com.github.execriez"
-  GLB_sv_ProjectVersion="1.0.6"
+  GLB_sv_ProjectVersion="1.0.7"
   GLB_sv_ProjectInstall="minimum"
 
   # ---
