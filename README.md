@@ -210,6 +210,10 @@ You should check this log if there are issues when installing.
 
 ## History:
 
+1.0.8 - 20 JAN 2019
+
+* A slight modification to the anti-flapping code in the example scripts, to make sure that multiple NetworkStatusWarden installs don't interfere with one another. Also added comments to the anti-flapping code to emphasise that is optional.
+
 1.0.7 - 16 NOV 2018
 
 * The NetworkStatusWarden binary now always calls a "NetworkDown" script before the "NetworkUp" script when the active network service changes. Network down events were noticeably missing when disconnecting Cisco VPN client connections.

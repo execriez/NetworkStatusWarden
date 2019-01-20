@@ -97,7 +97,7 @@ void PrimaryServiceStateCallback(SCDynamicStoreRef store, CFArrayRef changedKeys
     
     NSString        * exepath = [[NSBundle mainBundle] executablePath];
     
-    //    NSLog(@"DEBUG PrimaryServiceStateCallback:");
+    // NSLog(@"DEBUG PrimaryServiceStateCallback:");
     
     GlobalVars *globals = [GlobalVars sharedInstance];
     
@@ -147,8 +147,8 @@ void PrimaryServiceStateCallback(SCDynamicStoreRef store, CFArrayRef changedKeys
             globals.PrimaryServiceSetting = CurrPrimaryServiceValue;
             globals.PrimaryInterfaceSetting = CurrPrimaryInterfaceValue;
             
-            //NSLog(@"DEBUG PrimaryServiceStateCallback: CurrPrimaryServiceValue: %@", CurrPrimaryServiceValue);
-            //NSLog(@"DEBUG PrimaryServiceStateCallback: CurrPrimaryInterfaceValue: %@", CurrPrimaryInterfaceValue);
+            // NSLog(@"DEBUG PrimaryServiceStateCallback: CurrPrimaryServiceValue: %@", CurrPrimaryServiceValue);
+            // NSLog(@"DEBUG PrimaryServiceStateCallback: CurrPrimaryInterfaceValue: %@", CurrPrimaryInterfaceValue);
             
             // Only do something if the primary interface value has changed
             if ([CurrPrimaryServiceValue compare:PrevPrimaryServiceValue] != NSOrderedSame) {
@@ -185,7 +185,7 @@ void NetworkInterfaceStateCallback(SCDynamicStoreRef store, CFArrayRef changedKe
     
     CFBooleanRef	LinkActiveValue = NULL;
     
-    //    NSLog(@"DEBUG NetworkInterfaceStateCallback:");
+    // NSLog(@"DEBUG NetworkInterfaceStateCallback:");
     
     state_network_interface_KeyName = SCDynamicStoreKeyCreate(NULL, CFSTR("%@/%@/%@"), kSCDynamicStoreDomainState, kSCCompNetwork, kSCCompInterface);
     
@@ -194,7 +194,7 @@ void NetworkInterfaceStateCallback(SCDynamicStoreRef store, CFArrayRef changedKe
     for (i=0; i < changedKeyCount; i++) {
         CFStringRef changedKeyName = CFArrayGetValueAtIndex(changedKeys, i);
         
-        //        NSLog(@"DEBUG NetworkInterfaceStateCallback: changedKeyName: %@", changedKeyName);
+        // NSLog(@"DEBUG NetworkInterfaceStateCallback: changedKeyName: %@", changedKeyName);
         
         // The key that we are interested in "State:/Network/???/Link"
         if ((CFStringHasPrefix(changedKeyName, state_network_interface_KeyName)) && (CFStringHasSuffix(changedKeyName, kSCEntNetLink))){
@@ -206,7 +206,7 @@ void NetworkInterfaceStateCallback(SCDynamicStoreRef store, CFArrayRef changedKe
                 CFRelease(cfarray);
             }
             
-            //           NSLog(@"DEBUG NetworkInterfaceStateCallback: interfaceName: %@", interfaceName);
+            // NSLog(@"DEBUG NetworkInterfaceStateCallback: interfaceName: %@", interfaceName);
             
             // Get the /Network/???/Link Key property
             CFPropertyListRef changedKeyProp = SCDynamicStoreCopyValue(store, (CFStringRef) changedKeyName);

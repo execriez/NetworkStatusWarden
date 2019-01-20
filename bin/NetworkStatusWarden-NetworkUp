@@ -5,13 +5,15 @@
 # i.e.
 #   NetworkStatusWarden-NetworkUp "9804EAB2-718C-42A7-891D-79B73F91CA4B" "en0"
 
-# --- Begin Flapping Fix -----
+# --- Begin Optional Flapping Fix -----
 
 # Delay before commiting
 sv_MaxSecs=1
 
 sv_LockName="NetworkUp"
-sv_LockDirPath="/tmp/dontflap"
+
+sv_FlapID=$(dirname "${0}" | tr "/" "-")
+sv_LockDirPath="/tmp/${sv_FlapID}"
 
 mkdir -p "${sv_LockDirPath}"
 chown root:wheel "${sv_LockDirPath}"
@@ -42,7 +44,7 @@ fi
 
 rm -f "${sv_LockDirPath}/${sv_LockName}"
 
-# --- End Flapping Fix -----
+# --- End Optional Flapping Fix -----
 
 # --------
 
