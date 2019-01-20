@@ -212,7 +212,11 @@ You should check this log if there are issues when installing.
 
 1.0.8 - 20 JAN 2019
 
-* A slight modification to the anti-flapping code in the example scripts, to make sure that multiple NetworkStatusWarden installs don't interfere with one another. Also added comments to the anti-flapping code to emphasise that is optional.
+* A slight modification to the anti-flapping code in the example scripts, to make sure that multiple NetworkStatusWarden installs don't interfere with one another.
+
+* Removed the anti-flapping code from the "InterfaceUp" and "InterfaceDown" scripts. It only makes sense in the "NetworkUp" and "NetworkDown" scripts to smooth out Primary Network fluctuations.
+
+* Added comments to the anti-flapping code to emphasise that is optional.
 
 1.0.7 - 16 NOV 2018
 
