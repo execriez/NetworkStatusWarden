@@ -5,9 +5,11 @@
 # i.e.
 #   NetworkStatusWarden-NetworkDown "9804EAB2-718C-42A7-891D-79B73F91CA4B" "en0"
 
+# --------
+
 # --- Begin Optional Flapping Fix -----
 
-# Delay before commiting
+# Delay before comitting
 sv_MaxSecs=1
 
 sv_LockName="NetworkDown"
@@ -43,8 +45,6 @@ rm -f "${sv_LockDirPath}/${sv_LockName}"
 
 # --- End Optional Flapping Fix -----
 
-# --------
-
 # Do Something Here
 
 # Get service name
@@ -53,18 +53,5 @@ sv_ServiceName="${1}"
 # Get interface name
 sv_InterfaceName="${2}"
 
-nf_DoSomething()
-{
-  echo "${1}" >> /tmp/NetworkStatusWarden.log
-  say "${1}"
-}
-
-# Get a pronouncable interface name
-sv_PronouncableInterfaceName="$(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
-
-if [ "${sv_ServiceName}" = "com.cisco.anyconnect" ]
-then
-  nf_DoSomething "Cisco VPN service down - on ${sv_PronouncableInterfaceName}"
-else
-  nf_DoSomething "Primary network service down - on ${sv_PronouncableInterfaceName}"
-fi
+# Do Something
+echo "$(date '+%d %b %Y %H:%M:%S %Z') NetworkDown - Primary network service '${sv_ServiceName}' down on '${sv_InterfaceName}'" >> /tmp/NetworkStatusWarden.log

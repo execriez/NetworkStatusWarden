@@ -12,13 +12,5 @@
 # Get interface name
 sv_InterfaceName="${1}"
 
-nf_DoSomething()
-{
-  echo "${1}" >> /tmp/NetworkStatusWarden.log
-  say "${1}"
-}
-
-# Get a pronouncable interface name
-sv_PronouncableInterfaceName="$(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
-
-nf_DoSomething "Network interface up - ${sv_PronouncableInterfaceName}"
+# Do Something
+echo "$(date '+%d %b %Y %H:%M:%S %Z') InterfaceUp - network interface '${sv_InterfaceName}' up" >> /tmp/NetworkStatusWarden.log

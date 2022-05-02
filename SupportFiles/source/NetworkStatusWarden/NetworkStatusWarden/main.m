@@ -1,11 +1,11 @@
 //
 //  main.m
 //  NetworkStatusWarden
-//  Version 1.0.7
+//  Version 1.0.9
 //
-//  by Mark J Swift
+//  By Mark J Swift
 //
-//  Calls external commands via bash when a network interface comes up or goes down
+//  Calls external commands when a network interface comes up or goes down
 //  and when the primary network service comes up or goes down
 //
 //  External commands are
@@ -21,12 +21,14 @@
 {
     NSString *_PrimaryServiceSetting;
     NSString *_PrimaryInterfaceSetting;
+    NSMutableArray *_activeInterfacesArray;
 }
 
 + (GlobalVars *)sharedInstance;
 
 @property(strong, nonatomic, readwrite) NSString *PrimaryServiceSetting;
 @property(strong, nonatomic, readwrite) NSString *PrimaryInterfaceSetting;
+@property(strong, nonatomic, readwrite) NSMutableArray *activeInterfacesArray;
 
 @end
 
@@ -34,6 +36,7 @@
 
 @synthesize PrimaryServiceSetting = _PrimaryServiceSetting;
 @synthesize PrimaryInterfaceSetting = _PrimaryInterfaceSetting;
+@synthesize activeInterfacesArray = _activeInterfacesArray;
 
 + (GlobalVars *)sharedInstance {
     static GlobalVars *instance = nil;
@@ -50,6 +53,7 @@
         // Note not using _PrimaryInterfaceSetting = [[NSString alloc] init] as it doesnt return a useful object
         _PrimaryServiceSetting = nil;
         _PrimaryInterfaceSetting = nil;
+        _activeInterfacesArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -87,7 +91,7 @@ void PrimaryServiceStateCallback(SCDynamicStoreRef store, CFArrayRef changedKeys
 {
     CFIndex         i;
     CFIndex         changedKeyCount;
-    CFStringRef		state_network_global_ipv4_KeyName = NULL;
+    CFStringRef        state_network_global_ipv4_KeyName = NULL;
     
     NSString        *PrevPrimaryServiceValue = NULL;
     NSString        *PrevPrimaryInterfaceValue = NULL;
@@ -176,17 +180,19 @@ void NetworkInterfaceStateCallback(SCDynamicStoreRef store, CFArrayRef changedKe
 {
     CFIndex         i;
     CFIndex         changedKeyCount;
-    CFStringRef		state_network_interface_KeyName = NULL;
+    CFStringRef        state_network_interface_KeyName = NULL;
     
     NSString        * exepath = [[NSBundle mainBundle] executablePath];
     
-    CFArrayRef		cfarray;
-    CFStringRef     interfaceName		= NULL;
+    CFArrayRef        cfarray;
+    CFStringRef     interfaceName        = NULL;
     
-    CFBooleanRef	LinkActiveValue = NULL;
-    
+    CFBooleanRef    LinkActiveValue = NULL;
+
     // NSLog(@"DEBUG NetworkInterfaceStateCallback:");
-    
+
+    GlobalVars *globals = [GlobalVars sharedInstance];
+
     state_network_interface_KeyName = SCDynamicStoreKeyCreate(NULL, CFSTR("%@/%@/%@"), kSCDynamicStoreDomainState, kSCCompNetwork, kSCCompInterface);
     
     // Run through the list of changed keys (there should only be one)
@@ -217,11 +223,18 @@ void NetworkInterfaceStateCallback(SCDynamicStoreRef store, CFArrayRef changedKe
             
             if (LinkActiveValue != NULL) {
                 if (LinkActiveValue == kCFBooleanTrue) {
-                    [[NSString stringWithFormat:@"%@-InterfaceUp %@", exepath, interfaceName] runAsCommand];
+                    if (![globals.activeInterfacesArray containsObject:(__bridge NSString *)interfaceName]) {
+                        
+                        [globals.activeInterfacesArray addObject:(__bridge NSString *)interfaceName];
+                        [[NSString stringWithFormat:@"%@-InterfaceUp %@", exepath, interfaceName] runAsCommand];
+                    }
                     NSLog(@"Interface up: %@", interfaceName);
                 }   else    {
-                    [[NSString stringWithFormat:@"%@-InterfaceDown %@", exepath, interfaceName] runAsCommand];
-                    NSLog(@"Interface down: %@", interfaceName);
+                    if ([globals.activeInterfacesArray containsObject:(__bridge NSString *)interfaceName]) {
+                        [globals.activeInterfacesArray removeObject:(__bridge NSString *)interfaceName];
+                        [[NSString stringWithFormat:@"%@-InterfaceDown %@", exepath, interfaceName] runAsCommand];
+                        NSLog(@"Interface down: %@", interfaceName);
+                    }
                 }
             }
             
@@ -235,14 +248,14 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
         CFStringRef         PrimaryInterfaceWatchKey;
-        CFMutableArrayRef	PrimaryInterfaceTrackingKeys = NULL;
-        CFMutableArrayRef	PrimaryInterfaceTrackingPatterns = NULL;
-        CFRunLoopSourceRef	PrimaryServiceSessionRunLoopSource;
+        CFMutableArrayRef    PrimaryInterfaceTrackingKeys = NULL;
+        CFMutableArrayRef    PrimaryInterfaceTrackingPatterns = NULL;
+        CFRunLoopSourceRef    PrimaryServiceSessionRunLoopSource;
         
         CFStringRef         NetworkInterfaceWatchPattern;
-        CFMutableArrayRef	NetworkInterfaceTrackingKeys = NULL;
-        CFMutableArrayRef	NetworkInterfaceTrackingPatterns = NULL;
-        CFRunLoopSourceRef	NetworkInterfaceSessionRunLoopSource;
+        CFMutableArrayRef    NetworkInterfaceTrackingKeys = NULL;
+        CFMutableArrayRef    NetworkInterfaceTrackingPatterns = NULL;
+        CFRunLoopSourceRef    NetworkInterfaceSessionRunLoopSource;
         
         GlobalVars *globals = [GlobalVars sharedInstance];
         globals.PrimaryServiceSetting = @"unset";

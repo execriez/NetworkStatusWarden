@@ -17,12 +17,16 @@ NetworkStatusWarden consists of the following components:
  
 NetworkStatusWarden-InterfaceDown, NetworkStatusWarden-InterfaceUp, NetworkStatusWarden-NetworkDown and NetworkStatusWarden-NetworkUp are bash scripts.
 
-These example scripts use the "say" command to speak whenever there is a network event. You should customise the scripts to your own needs.
+The example scripts simply write to a log file in /tmp. You should customise the scripts to your own needs.
 
 
 ## How to install:
 
-Download the NetworkStatusWarden installation package here [NetworkStatusWarden.pkg](https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden.pkg)
+Open the Terminal app, and download the latest [NetworkStatusWarden.pkg](https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden.pkg) installer to your desktop by typing the following command. 
+
+	curl -k --silent --retry 3 --retry-max-time 6 --fail https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden.pkg --output ~/Desktop/NetworkStatusWarden.pkg
+
+To install, double-click the downloaded package.
 
 The installer will install the following files and directories:
 
@@ -37,7 +41,7 @@ The installer will install the following files and directories:
 
 There's no need to reboot.
 
-After installation, your computer will speak during network up and down events.
+After installation, your computer will write to the log file /tmp/NetworkStatusWarden.log whenever the network comes up or goes down. 
 
 If the installer fails you should check the installation logs.
 
@@ -50,7 +54,7 @@ After installation, four simple example scripts can be found in the following lo
 	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkDown
 	/usr/NetworkStatusWarden/bin/NetworkStatusWarden-NetworkUp
 
-These simple scripts use the "say" command to speak to let you know when the network is up or down. Modify the scripts to alter this default behaviour.
+These scripts simply write to the log file /tmp/NetworkStatusWarden.log whenever the network comes up or goes down. Modify the scripts to your own needs.
 
 **NetworkStatusWarden-InterfaceDown**
 
@@ -60,24 +64,16 @@ These simple scripts use the "say" command to speak to let you know when the net
 	#   NetworkStatusWarden-InterfaceDown "InterfaceName"
 	# i.e.
 	#   NetworkStatusWarden-InterfaceDown "en0"
-
+	
 	# --------
-
+	
 	# Do Something Here
-
+	
 	# Get interface name
 	sv_InterfaceName="${1}"
-
-	nf_DoSomething()
-	{
-	  echo "${1}" >> /tmp/NetworkStatusWarden.log
-	  say "${1}"
-	}
-
-	# Get a pronouncable interface name
-	sv_PronouncableInterfaceName="$(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
-
-	nf_DoSomething "Network interface down - ${sv_PronouncableInterfaceName}"
+	
+	# Do Something
+	echo "$(date '+%d %b %Y %H:%M:%S %Z') InterfaceDown - network interface '${sv_InterfaceName}' down" >> /tmp/NetworkStatusWarden.log
 
 **NetworkStatusWarden-InterfaceUp**
 
@@ -87,24 +83,16 @@ These simple scripts use the "say" command to speak to let you know when the net
 	#   NetworkStatusWarden-InterfaceUp "InterfaceName"
 	# i.e.
 	#   NetworkStatusWarden-InterfaceUp "en0"
-
+	
 	# --------
-
+	
 	# Do Something Here
-
+	
 	# Get interface name
 	sv_InterfaceName="${1}"
-
-	nf_DoSomething()
-	{
-	  echo "${1}" >> /tmp/NetworkStatusWarden.log
-	  say "${1}"
-	}
-
-	# Get a pronouncable interface name
-	sv_PronouncableInterfaceName="$(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
-
-	nf_DoSomething "Network interface up - ${sv_PronouncableInterfaceName}"
+	
+	# Do Something
+	echo "$(date '+%d %b %Y %H:%M:%S %Z') InterfaceUp - network interface '${sv_InterfaceName}' up" >> /tmp/NetworkStatusWarden.log
 
 **NetworkStatusWarden-NetworkDown**
 
@@ -114,32 +102,19 @@ These simple scripts use the "say" command to speak to let you know when the net
 	#   NetworkStatusWarden-NetworkDown "ServiceName" "InterfaceName"
 	# i.e.
 	#   NetworkStatusWarden-NetworkDown "9804EAB2-718C-42A7-891D-79B73F91CA4B" "en0"
-
+	
 	# --------
-
+	
 	# Do Something Here
-
+	
 	# Get service name
 	sv_ServiceName="${1}"
-
+	
 	# Get interface name
 	sv_InterfaceName="${2}"
-
-	nf_DoSomething()
-	{
-	  echo "${1}" >> /tmp/NetworkStatusWarden.log
-	  say "${1}"
-	}
-
-	# Get a pronouncable interface name
-	sv_PronouncableInterfaceName="$(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
-
-	if [ "${sv_ServiceName}" = "com.cisco.anyconnect" ]
-	then
-	  nf_DoSomething "Cisco VPN service down - on ${sv_PronouncableInterfaceName}"
-	else
-	  nf_DoSomething "Primary network service down - on ${sv_PronouncableInterfaceName}"
-	fi
+	
+	# Do Something
+	echo "$(date '+%d %b %Y %H:%M:%S %Z') NetworkDown - Primary network service '${sv_ServiceName}' down on '${sv_InterfaceName}'" >> /tmp/NetworkStatusWarden.log
 
 **NetworkStatusWarden-NetworkUp**
 
@@ -149,58 +124,43 @@ These simple scripts use the "say" command to speak to let you know when the net
 	#   NetworkStatusWarden-NetworkUp "ServiceName" "InterfaceName"
 	# i.e.
 	#   NetworkStatusWarden-NetworkUp "9804EAB2-718C-42A7-891D-79B73F91CA4B" "en0"
-
+	
 	# --------
-
+	
 	# Do Something Here
-
+	
 	# Get service name
 	sv_ServiceName="${1}"
-
+	
 	# Get interface name
 	sv_InterfaceName="${2}"
-
-	nf_DoSomething()
-	{
-	  echo "${1}" >> /tmp/NetworkStatusWarden.log
-	  say "${1}"
-	}
-
-	# Get a pronouncable interface name
-	sv_PronouncableInterfaceName="$(echo "${sv_InterfaceName}" | sed "s|\(.\)|\1 |g")"
-
-	if [ "${sv_ServiceName}" = "com.cisco.anyconnect" ]
-	then
-	  nf_DoSomething "Cisco VPN service up - on ${sv_PronouncableInterfaceName}"
-	else
-	  nf_DoSomething "Primary network service up - on ${sv_PronouncableInterfaceName}"
-	fi
+	
+	# Do Something
+	echo "$(date '+%d %b %Y %H:%M:%S %Z') NetworkUp - Primary network service '${sv_ServiceName}' up on '${sv_InterfaceName}'" >> /tmp/NetworkStatusWarden.log
 
 ## How to uninstall:
 
-Download the NetworkStatusWarden uninstaller package here [NetworkStatusWarden-Uninstaller.pkg](https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden-Uninstaller.pkg)
+Open the Terminal app, and download the latest [NetworkStatusWarden-Uninstaller.pkg](https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden-Uninstaller.pkg) uninstaller to your desktop by typing the following command. 
+
+	curl -k --silent --retry 3 --retry-max-time 6 --fail https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden-Uninstaller.pkg --output ~/Desktop/NetworkStatusWarden-Uninstaller.pkg
+
+
+To uninstall, double-click the downloaded package.
 
 The uninstaller will remove the following files and directories:
 
 	/Library/LaunchDaemons/com.github.execriez.networkstatuswarden.plist
 	/usr/NetworkStatusWarden/
 
-After the uninstall everything goes back to normal, and network up and down events will not be tracked.
+After the uninstall everything goes back to normal, and network status up and down events will not be tracked.
 
 There's no need to reboot.
 
 ## Logs:
 
-The NetworkStatusWarden binary writes to the following log file:
+The example scripts write to the following log file:
 
-	/var/log/systemlog
-  
-The following is an example of a typical system log file entry:
-
-	Oct  3 19:32:42 mymac-01 NetworkStatusWarden[1951]: Interface up: en1
-	Oct  3 19:32:45 mymac-01 NetworkStatusWarden[1951]: Primary network service up: old unset (unset), new 9804EAB2-718C-42A7-891D-79B73F91CA4B (en1)
-	Oct  3 19:32:54 mymac-01 NetworkStatusWarden[1951]: Interface down: en1
-	Oct  3 19:32:57 mymac-01 NetworkStatusWarden[1951]: Primary network service down: old 9804EAB2-718C-42A7-891D-79B73F91CA4B (en1), new unset (unset)
+	/tmp/NetworkStatusWarden.log
 
 The installer writes to the following log file:
 
@@ -209,6 +169,18 @@ The installer writes to the following log file:
 You should check this log if there are issues when installing.
 
 ## History:
+
+1.0.9 - 02 MAY 2022
+
+* Compiled as a fat binary to support both Apple Silicon and Intel Chipsets. This version requires MacOS 10.9 or later.
+
+* The example scripts now just write to a log file. Previously they made use of the "say" command.
+
+* The package creation and installation code has been aligned with other "Warden" projects.
+
+* The code now keeps track of interface status to make sure that up or down events are only triggered at status change.
+
+* Removed the anti-flapping code from the example scripts as it doesn't appear to be needed since the latest updates.
 
 1.0.8 - 20 JAN 2019
 

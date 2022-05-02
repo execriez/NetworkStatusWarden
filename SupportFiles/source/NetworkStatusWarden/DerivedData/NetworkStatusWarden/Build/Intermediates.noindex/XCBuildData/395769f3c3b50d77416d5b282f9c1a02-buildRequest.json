@@ -1,0 +1,59 @@
+{
+  "_buildCommand2" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildOnly"
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "5710c05f064a66a8bc28d670c1a6273ced444e4a6e5e9833229b97eca9277696"
+    }
+  ],
+  "containerPath" : "/Users/local/Desktop/projects/GitHub/NetworkStatusWarden/SupportFiles/source/NetworkStatusWarden/NetworkStatusWarden.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "arm64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "macosx",
+      "sdk" : "macosx12.3",
+      "sdkVariant" : "macos",
+      "supportedArchitectures" : [
+        "arm64e",
+        "arm64",
+        "x86_64"
+      ],
+      "targetArchitecture" : "arm64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/local/Desktop/projects/GitHub/NetworkStatusWarden/SupportFiles/source/NetworkStatusWarden/DerivedData/NetworkStatusWarden/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/local/Desktop/projects/GitHub/NetworkStatusWarden/SupportFiles/source/NetworkStatusWarden/DerivedData/NetworkStatusWarden/Build/Products",
+      "derivedDataPath" : "/Users/local/Desktop/projects/GitHub/NetworkStatusWarden/SupportFiles/source/NetworkStatusWarden/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/local/Desktop/projects/GitHub/NetworkStatusWarden/SupportFiles/source/NetworkStatusWarden/DerivedData/NetworkStatusWarden/Index/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/local/Desktop/projects/GitHub/NetworkStatusWarden/SupportFiles/source/NetworkStatusWarden/DerivedData/NetworkStatusWarden/Index/PrecompiledHeaders",
+      "pchPath" : "/Users/local/Desktop/projects/GitHub/NetworkStatusWarden/SupportFiles/source/NetworkStatusWarden/DerivedData/NetworkStatusWarden/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Release",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "qos" : "default",
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "shouldCollectMetrics" : false,
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}
