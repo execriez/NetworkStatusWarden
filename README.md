@@ -170,6 +170,12 @@ You should check this log if there are issues when installing.
 
 ## History:
 
+1.0.10 - 28 MAY 2022
+
+* Removed the anti-flapping code from the example scripts. Thought this was done in the previous release but it was somehow missed.
+
+* Slight update to the package creation and installation code.
+
 1.0.9 - 02 MAY 2022
 
 * Compiled as a fat binary to support both Apple Silicon and Intel Chipsets. This version requires MacOS 10.9 or later.

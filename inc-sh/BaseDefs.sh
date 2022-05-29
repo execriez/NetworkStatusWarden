@@ -2,8 +2,8 @@
 #
 # Short:    Base routines (shell)
 # Author:   Mark J Swift
-# Version:  3.2.5
-# Modified: 30-Dec-2020
+# Version:  3.3.0
+# Modified: 22-May-2022
 #
 # Defines base global variables and functions that are used in all project scripts.
 #
@@ -102,7 +102,7 @@ then
     # Exit if something went wrong unexpectedly
     if test -z "${GLB_BC_BASECONST_INCLUDED}"
     then
-      echo >&2 "Something unexpected happened"
+      echo >&2 "Something unexpected happened - '${0}' BASECONST"
       exit 90
     fi
   fi
@@ -289,8 +289,6 @@ then
   {
     local iv_LogLevel
     local sv_Text
-    local sv_CocoaDialogFilePath
-    local sv_Result
     local sv_LogLevel
     
     iv_LogLevel=${1}
@@ -298,109 +296,12 @@ then
   
     sv_LogLevel="$(GLB_SF_LOGLEVEL ${iv_LogLevel})"
   
-    GLB_NF_LOGMESSAGE ${sv_LogLevel} "${sv_Text}"
+    GLB_NF_LOGMESSAGE ${iv_LogLevel} "${sv_Text}"
   
-    case ${iv_LogLevel} in
-    0)
-      # Emergency (Red text, Grey background, Black border)
-      sv_text_col="ffffff"
-      sv_border_col="ff2020"
-      sv_bckgnd_bot="4f4f4f"
-      sv_bckgnd_top="4f4f4f"
-      sv_icon="hazard"
-      ;;
-      
-    1)
-      # Alert (White text, Red background, Red border)
-      sv_text_col="ffffff"
-      sv_border_col="ff2020"
-      sv_bckgnd_bot="800000"
-      sv_bckgnd_top="800000"
-      sv_icon="hazard"
-      ;;
-      
-    2)
-      # Critical (White text, Orange background, Orange border)
-      sv_text_col="ffffff"
-      sv_border_col="ff2020"
-      sv_bckgnd_bot="a06020"
-      sv_bckgnd_top="a06020"
-      sv_icon="hazard"
-      ;;
-      
-    3)
-      # Error (Black text, Red background, Red border)
-      sv_text_col="000000"
-      sv_border_col="ff2020"
-      sv_bckgnd_bot="ffd0d0"
-      sv_bckgnd_top="ffe8e8"
-      sv_icon="hazard"
-      ;;
-      
-    4)
-      # Warning (Black text, Orange background, Orange border)
-      sv_text_col="000000"
-      sv_border_col="d08000"
-      sv_bckgnd_bot="ffe880"
-      sv_bckgnd_top="ffe880"
-      sv_icon="hazard"
-      ;;
-      
-    5)
-      # Notice (Black text, Green background, Green border)
-      sv_text_col="000000"
-      sv_border_col="008000"
-      sv_bckgnd_bot="d0ffd0"
-      sv_bckgnd_top="e8ffe8"
-      sv_icon="info"
-      ;;
-      
-    6)
-      # Information (Black text, Blue background, Blue border)
-      sv_text_col="000000"
-      sv_border_col="000080"
-      sv_bckgnd_bot="d0d0ff"
-      sv_bckgnd_top="e8e8ff"
-      sv_icon="info"
-      ;;
-      
-    7)
-      # Debug  (White text, Grey background, Black border)
-      sv_text_col="000000"
-      sv_border_col="000000"
-      sv_bckgnd_bot="ffffff"
-      sv_bckgnd_top="ffffff"
-      sv_icon="info"
-      ;;
-      
-    *)
-      # Unknown   (White text, Grey background, Black border)
-      sv_text_col="ffffff"
-      sv_border_col="000000"
-      sv_bckgnd_bot="4f4f4f"
-      sv_bckgnd_top="4f4f4f"
-      sv_icon="info"
-      ;;
-      
-    esac
-  
-    sv_CocoaDialogFilePath="${GLB_SV_PROJECTDIRPATH}"/bin/CocoaDialog.app/Contents/MacOS/CocoaDialog
-    if test -f "${sv_CocoaDialogFilePath}"
-    then
-      sv_Result=$("${sv_CocoaDialogFilePath}" bubble \
-      --timeout "15" \
-      --x-placement "center" \
-      --y-placement "center" \
-      --title "${sv_LogLevel}" \
-      --text "${sv_Text}" \
-      --text-color "${sv_text_col}" \
-      --border-color "${sv_border_col}" \
-      --background-bottom "${sv_bckgnd_bot}" \
-      --background-top "${sv_bckgnd_top}" \
-      --debug \
-      --icon "${sv_icon}")
-    fi
-  
+    /usr/bin/osascript << EOF
+display notification "${sv_Text}" with title "${sv_LogLevel}"
+EOF
+
   }
 
   GLB_BF_NAMEDLOCKGRAB() # ; LockName [MaxSecs] [SilentFlag]; 
@@ -436,9 +337,19 @@ then
     bv_Result=${GLB_BC_FALSE}
     while [ "${bv_Result}" = ${GLB_BC_FALSE} ]
     do
+      if test -s "${sv_LockDirPath}/${sv_LockName}"
+      then
+        sv_ActiveLockPID="$(cat 2>/dev/null "${sv_LockDirPath}/${sv_LockName}" | head -n1)"
+        if [ -z "$(ps -p ${sv_ActiveLockPID} -o pid= | tr -d " ")" ]
+        then
+          # If the active lock process doesn't exist, delete the lock
+          rm -f "${sv_LockDirPath}/${sv_LockName}"
+        fi
+      fi
+    
       if ! test -s "${sv_LockDirPath}/${sv_LockName}"
       then
-        echo "${GLB_IV_THISSCRIPTPID}" > "${sv_LockDirPath}/${sv_LockName}"
+        echo "${GLB_IV_THISSCRIPTPID}" >> "${sv_LockDirPath}/${sv_LockName}"
       fi
       # Ignore errors, because the file might disappear before we get a chance to do the cat
       sv_ActiveLockPID="$(cat 2>/dev/null "${sv_LockDirPath}/${sv_LockName}" | head -n1)"
@@ -970,16 +881,16 @@ then
   # -- Create temporary directories
     
   # Create a temporary directory private to this user (and admins)
-  GLB_SV_RUNUSERTEMPDIRPATH="/tmp/${GLB_SV_RUNUSERNAME}"
+  GLB_SV_RUNUSERTEMPDIRPATH="/tmp/${GLB_SV_RUNUSERNAME}/${GLB_SC_PROJECTNAME}"
   if ! test -d "${GLB_SV_RUNUSERTEMPDIRPATH}"
   then
     mkdir -p "${GLB_SV_RUNUSERTEMPDIRPATH}"
-    chown ${GLB_SV_RUNUSERNAME}:admin "${GLB_SV_RUNUSERTEMPDIRPATH}"
+    chown -R ${GLB_SV_RUNUSERNAME}:admin "/tmp/${GLB_SV_RUNUSERNAME}"
     chmod 770 "${GLB_SV_RUNUSERTEMPDIRPATH}"
   fi
   
   # Create a temporary directory private to this script
-  GLB_SV_THISSCRIPTTEMPDIRPATH="$(mktemp -dq ${GLB_SV_RUNUSERTEMPDIRPATH}/${GLB_SV_THISSCRIPTFILENAME}-XXXXXXXX)"
+  GLB_SV_THISSCRIPTTEMPDIRPATH="$(mktemp -dq ${GLB_SV_RUNUSERTEMPDIRPATH}/${GLB_SV_THISSCRIPTFILENAME}-${GLB_IV_THISSCRIPTPID}-XXXXXXXX)"
   mkdir -p "${GLB_SV_THISSCRIPTTEMPDIRPATH}"
   
   # ---

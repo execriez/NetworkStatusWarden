@@ -2,8 +2,8 @@
 #
 # Short:    Perform pre-install checks
 # Author:   Mark J Swift
-# Version:  3.2.24
-# Modified: 04-Apr-2022
+# Version:  3.3.0
+# Modified: 22-May-2022
 #
 #
 # Called as follows (by Install as root):    
@@ -32,7 +32,7 @@ GLB_SV_PROJECTDIRPATH="$(dirname $(dirname ${0}))"
 
 # ---
 
-GLB_SV_CODEVERSION="3.2.24"
+GLB_SV_CODEVERSION="3.3.0"
 
 # ---
 
@@ -44,7 +44,7 @@ then
   # Exit if something went wrong unexpectedly
   if [ -z "${GLB_BC_BASEDEFS_INCLUDED}" ]
   then
-    echo >&2 "Something unexpected happened"
+    echo >&2 "Something unexpected happened - '${0}' BASEDEFS"
     exit 90
   fi
 fi

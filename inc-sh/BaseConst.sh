@@ -2,8 +2,8 @@
 #
 # Short:    Base constants (shell)
 # Author:   Mark J Swift
-# Version:  3.2.23
-# Modified: 19-Feb-2022
+# Version:  1.0.10
+# Modified: 28-May-2022
 #
 # Defines base global constants that are used in all project scripts.
 #
@@ -31,8 +31,8 @@ then
   #  GLB_IC_MSGLEVELINFO                    - (6) Informational, normal operational messages that require no action
   #  GLB_IC_MSGLEVELDEBUG                   - (7) Debug, information useful for developing and debugging
   #
-  #  GLB_SC_PROJECTNAME                     - Project name (LabWarden)
-  #  GLB_SC_PROJECTINITIALS                 - Project initials (LW)
+  #  GLB_SC_PROJECTNAME                     - Project name (NetworkStatusWarden)
+  #  GLB_SC_PROJECTINITIALS                 - Project initials (NSW)
   #  GLB_SC_PROJECTVERSION                  - Project version (i.e. 2.0.6)
   #  GLB_SC_PROJECTMAJORVERSION             - Project major version (i.e. 2)
   #  GLB_SC_PROJECTDEVELOPER                - Project developer (com.github.execriez)
@@ -82,7 +82,7 @@ then
 
   GLB_SC_PROJECTNAME="NetworkStatusWarden"
   GLB_SC_PROJECTINITIALS="NSW"
-  GLB_SC_PROJECTVERSION="1.0.9"
+  GLB_SC_PROJECTVERSION="1.0.10"
   GLB_SC_PROJECTMAJORVERSION="1"
   GLB_SC_PROJECTDEVELOPER="com.github.execriez"
   GLB_SC_PROJECTSIGNATURE="com.github.execriez.networkstatuswarden"
